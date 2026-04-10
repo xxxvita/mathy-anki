@@ -439,14 +439,12 @@
 <script type="text/babel" data-type="module">
 const { useState, useEffect, useCallback, useRef } = React;
 
-// Keys are entered by the user as a single string: "gateway_url|tpk_key"
-// Stored in localStorage so they only need to enter once.
-const KEYS_STORAGE = "anki-keys";
+const GATEWAY = "https://western-before-scholars-prostores.trycloudflare.com";
+const KEYS_STORAGE = "anki-api-key";
 
 function getKeys() {
-  const raw = localStorage.getItem(KEYS_STORAGE) || "";
-  const [gw, key] = raw.split("|");
-  return (gw && key) ? { gateway: gw.trim(), apiKey: key.trim() } : null;
+  const key = (localStorage.getItem(KEYS_STORAGE) || "").trim();
+  return key ? { gateway: GATEWAY, apiKey: key } : null;
 }
 
 const EXAMPLE = `Что такое производная функции?
@@ -568,20 +566,19 @@ Reply ONLY with valid JSON: {"correct": true/false, "comment": "brief explanatio
 
 function KeysScreen({ onSave }) {
   const [val, setVal] = useState("");
-  const valid = val.includes("|") && val.split("|")[0].startsWith("http") && val.split("|")[1].startsWith("tpk_");
+  const valid = val.trim().startsWith("tpk_");
 
   return (
     <div className="editor">
       <h1>Anki Cards</h1>
       <div className="editor-hint">
-        Вставьте строку подключения:<br/>
-        <code>https://gateway-url|tpk_your_key</code>
+        Введите ключ доступа:
       </div>
       <input
-        type="text"
+        type="password"
         value={val}
         onChange={(e) => setVal(e.target.value)}
-        placeholder="https://your-gateway.com|tpk_..."
+        placeholder="tpk_..."
         spellCheck={false}
         autoFocus
         style={{
@@ -604,7 +601,7 @@ function KeysScreen({ onSave }) {
           onSave();
         }}
       >
-        Save
+        Войти
       </button>
     </div>
   );
