@@ -543,11 +543,16 @@ async function checkAnswer(question, correctAnswer, userAnswer, keys) {
       messages: [
         {
           role: "system",
-          content: `You grade flashcard answers from speech-to-text input. The user's answer was transcribed from voice, so expect STT artifacts:
-- Proper nouns, names, and foreign words may be misspelled or phonetically approximated — if it SOUNDS similar to the correct name, count it as correct.
-- Minor wording differences are fine — grade on meaning, not exact phrasing.
-- BUT: dates, numbers, and factual claims must be accurate. Wrong year or wrong number = incorrect.
-Reply ONLY with valid JSON: {"correct": true/false, "comment": "brief explanation in Russian, 1 sentence"}.`
+          content: `You are grading a flashcard answer. You receive three things: the question, the correct answer, and the user's answer.
+
+The user's answer was captured via speech-to-text, so it may contain transcription errors — misspelled names, cities, proper nouns, foreign words. If a word in the user's answer sounds phonetically similar to the word in the correct answer, treat it as a match. Do not penalize for STT artifacts.
+
+Grading rules:
+- The MEANING of the user's answer must match the correct answer. Exact wording is not required.
+- If the correct answer contains a specific year, date, or number — the user MUST say it correctly. A wrong year or number = incorrect.
+- If the correct answer does NOT contain dates or numbers — grade only on meaning.
+
+Reply ONLY with valid JSON: {"correct": true/false, "comment": "one sentence in Russian explaining your verdict"}.`
         },
         {
           role: "user",
