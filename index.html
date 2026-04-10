@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anki Cards</title>
+<style>
+  :root {
+    --bg: #0f0f13;
+    --surface: #1a1a24;
+    --border: #2a2a3a;
+    --text: #e8e6f0;
+    --dim: #8888a0;
+    --accent: #7c6ff7;
+    --accent2: #f77c6f;
+    --green: #4ade80;
+    --red: #f87171;
+    --card-w: 560px;
+    --card-h: 340px;
+    --mini-w: 160px;
+    --mini-h: 100px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  #root { width: 100%; height: 100vh; }
+
+  .app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 24px;
+    padding: 20px;
+    position: relative;
+  }
+
+  /* ---- Editor ---- */
+  .editor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .editor h1 {
+    font-size: 28px;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .editor-hint {
+    color: var(--dim);
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .editor-hint code {
+    background: var(--surface);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .editor textarea {
+    width: 100%;
+    min-height: 300px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: var(--text);
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    padding: 20px;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .editor textarea:focus { border-color: var(--accent); }
+  .editor textarea::placeholder { color: #555568; }
+
+  .btn-start {
+    background: linear-gradient(135deg, var(--accent), #6055d8);
+    border: none;
+    color: #fff;
+    padding: 14px 48px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(124, 111, 247, 0.3);
+  }
+
+  .btn-start:active { transform: scale(0.97); }
+
+  .btn-start:disabled {
+    opacity: 0.4;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ---- Main card ---- */
+  .counter {
+    font-size: 14px;
+    color: var(--dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .scene {
+    perspective: 1000px;
+    width: var(--card-w);
+    height: var(--card-h);
+  }
+
+  .card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .card.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid var(--border);
+    overflow: auto;
+  }
+
+  .card-front {
+    background: linear-gradient(145deg, #1e1e30, #16162a);
+    box-shadow:
+      0 20px 60px rgba(124, 111, 247, 0.08),
+      0 0 0 1px rgba(124, 111, 247, 0.1),
+      inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+
+  .card-back {
+    background: linear-gradient(145deg, #2a1e1e, #2a1620);
+    box-shadow:
+      0 20px 60px rgba(247, 124, 111, 0.08),
+      0 0 0 1px rgba(247, 124, 111, 0.1),
+      inset 0 1px 0 rgba(255,255,255,0.03);
+    transform: rotateY(180deg);
+  }
+
+  .card-label {
+    position: absolute;
+    top: 16px;
+    left: 24px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.4;
+    font-weight: 600;
+  }
+
+  .card-front .card-label { color: var(--accent); }
+  .card-back .card-label { color: var(--accent2); }
+
+  .card-text {
+    font-size: 22px;
+    line-height: 1.5;
+    font-weight: 500;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  .card-front .card-text { color: #d0ccf0; }
+  .card-back .card-text { color: #f0d0cc; }
+
+  .hint {
+    position: absolute;
+    bottom: 16px;
+    font-size: 12px;
+    opacity: 0.25;
+    letter-spacing: 1px;
+  }
+
+  /* ---- Piles (mini cards) ---- */
+  .pile {
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px;
+    max-width: 50vw;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .pile-top { top: 0; left: 0; align-content: flex-start; }
+  .pile-bottom { bottom: 0; left: 0; align-content: flex-end; }
+
+  .pile-label {
+    width: 100%;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.4;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .pile-top .pile-label { color: var(--green); }
+  .pile-bottom .pile-label { color: var(--red); }
+
+  .mini-card {
+    width: var(--mini-w);
+    height: var(--mini-h);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.3;
+    font-weight: 500;
+    overflow: hidden;
+    animation: pile-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    border: 1px solid var(--border);
+  }
+
+  .mini-card.correct {
+    background: linear-gradient(145deg, #1a2a1a, #162a1a);
+    color: #a0d8a0;
+    border-color: rgba(74, 222, 128, 0.2);
+  }
+
+  .mini-card.wrong {
+    background: linear-gradient(145deg, #2a1e1e, #2a1620);
+    color: #f0c0b0;
+    border-color: rgba(248, 113, 113, 0.2);
+  }
+
+  @keyframes pile-in {
+    from {
+      opacity: 0;
+      transform: scale(0.3) translateY(100px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  /* ---- Flyaway animation on the main card ---- */
+  .scene.fly-correct {
+    animation: fly-top-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .scene.fly-wrong {
+    animation: fly-bottom-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes fly-top-left {
+    to {
+      transform: translate(-60vw, -40vh) scale(0.25);
+      opacity: 0;
+    }
+  }
+
+  @keyframes fly-bottom-left {
+    to {
+      transform: translate(-60vw, 40vh) scale(0.25);
+      opacity: 0;
+    }
+  }
+
+  /* ---- Voice ---- */
+  .voice-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-height: 70px;
+  }
+
+  .btn-mic {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    color: var(--dim);
+    font-size: 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-mic:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .btn-mic.recording {
+    border-color: var(--red);
+    background: rgba(248, 113, 113, 0.1);
+    color: var(--red);
+    animation: pulse-ring 1.5s ease infinite;
+  }
+
+  .btn-mic.processing {
+    border-color: var(--accent);
+    color: var(--accent);
+    opacity: 0.6;
+    pointer-events: none;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.3); }
+    70% { box-shadow: 0 0 0 16px rgba(248, 113, 113, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0); }
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .voice-status {
+    font-size: 12px;
+    color: var(--dim);
+    letter-spacing: 1px;
+    min-height: 18px;
+  }
+
+  .voice-transcript {
+    font-size: 13px;
+    color: var(--dim);
+    max-width: var(--card-w);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* ---- Controls ---- */
+  .controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--dim);
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    user-select: none;
+  }
+
+  .btn:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    background: #1e1e30;
+  }
+
+  .btn:active { transform: scale(0.97); }
+
+  /* ---- Done screen ---- */
+  .done {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .done h2 {
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  .done-stats {
+    font-size: 18px;
+    color: var(--dim);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 620px) {
+    :root { --card-w: 88vw; --card-h: 260px; --mini-w: 100px; --mini-h: 64px; }
+    .card-text { font-size: 18px; }
+    .editor textarea { min-height: 200px; }
+    .btn-mic { width: 56px; height: 56px; font-size: 24px; }
+    .pile { max-width: 40vw; }
+    .mini-card { font-size: 8px; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel" data-type="module">
+const { useState, useEffect, useCallback, useRef } = React;
+
+const GATEWAY = "http://45.83.129.150:30093";
+const API_KEY = "REMOVED";
+// ElevenLabs key not needed — STT goes through Gateway
+
+const EXAMPLE = `Что такое производная функции?
+Предел отношения приращения функции к приращению аргумента
+
+Формула Эйлера
+e^(iπ) + 1 = 0
+
+Чему равен интеграл от x^n?
+x^(n+1) / (n+1) + C`;
+
+const STORAGE_KEY = "anki-cards-data";
+
+function parseCards(text) {
+  return text
+    .split(/\n\s*\n/)
+    .map(block => block.trim())
+    .filter(Boolean)
+    .map(block => {
+      const [q, ...rest] = block.split("\n");
+      const a = rest.join("\n").trim();
+      return q && a ? { question: q.trim(), answer: a } : null;
+    })
+    .filter(Boolean);
+}
+
+// ---- Audio conversion ----
+
+async function webmToWav(webmBlob) {
+  const arrayBuf = await webmBlob.arrayBuffer();
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const decoded = await audioCtx.decodeAudioData(arrayBuf);
+  audioCtx.close();
+
+  const sampleRate = 16000;
+  const offline = new OfflineAudioContext(1, decoded.duration * sampleRate, sampleRate);
+  const source = offline.createBufferSource();
+  source.buffer = decoded;
+  source.connect(offline.destination);
+  source.start();
+  const rendered = await offline.startRendering();
+
+  const pcm = rendered.getChannelData(0);
+  const wavBuf = new ArrayBuffer(44 + pcm.length * 2);
+  const view = new DataView(wavBuf);
+  const writeStr = (off, str) => { for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i)); };
+  writeStr(0, "RIFF");
+  view.setUint32(4, 36 + pcm.length * 2, true);
+  writeStr(8, "WAVE");
+  writeStr(12, "fmt ");
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, 1, true);
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
+  writeStr(36, "data");
+  view.setUint32(40, pcm.length * 2, true);
+  for (let i = 0; i < pcm.length; i++) {
+    const s = Math.max(-1, Math.min(1, pcm[i]));
+    view.setInt16(44 + i * 2, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+  }
+  return new Blob([wavBuf], { type: "audio/wav" });
+}
+
+// ---- API helpers ----
+
+async function transcribeAudio(audioBlob) {
+  const wavBlob = await webmToWav(audioBlob);
+  const form = new FormData();
+  form.append("file", wavBlob, "recording.wav");
+  const res = await fetch(`${GATEWAY}/v1/stt/file`, {
+    method: "POST",
+    headers: { "Authorization": `Bearer ${API_KEY}` },
+    body: form,
+  });
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`STT error: ${res.status} ${text}`);
+  }
+  const data = await res.json();
+  return data.text;
+}
+
+async function checkAnswer(question, correctAnswer, userAnswer) {
+  const res = await fetch(`${GATEWAY}/v1/openai/chat/completions`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "gpt-4o-mini",
+      temperature: 0,
+      messages: [
+        {
+          role: "system",
+          content: `You are a strict flashcard grader. Compare the user's spoken answer to the correct answer.
+Reply ONLY with valid JSON: {"correct": true/false, "comment": "brief explanation in Russian, 1 sentence"}.
+Be lenient with wording — if the meaning matches, it's correct. But the key facts must be present.`
+        },
+        {
+          role: "user",
+          content: `Question: ${question}\nCorrect answer: ${correctAnswer}\nUser's answer: ${userAnswer}`
+        }
+      ]
+    }),
+  });
+  if (!res.ok) throw new Error(`LLM error: ${res.status}`);
+  const data = await res.json();
+  const text = data.choices[0].message.content.trim();
+  return JSON.parse(text);
+}
+
+// ---- Components ----
+
+function Editor({ onStart }) {
+  const saved = localStorage.getItem(STORAGE_KEY) || "";
+  const [text, setText] = useState(saved);
+  const count = parseCards(text).length;
+
+  const handleChange = (e) => {
+    setText(e.target.value);
+    localStorage.setItem(STORAGE_KEY, e.target.value);
+  };
+
+  return (
+    <div className="editor">
+      <h1>Anki Cards</h1>
+      <div className="editor-hint">
+        Каждая карточка — два блока через пустую строку:<br/>
+        <code>Вопрос</code> (первая строка) и <code>Ответ</code> (вторая строка)
+      </div>
+      <textarea
+        value={text}
+        onChange={handleChange}
+        placeholder={EXAMPLE}
+        spellCheck={false}
+        autoFocus
+      />
+      <button
+        className="btn-start"
+        disabled={count === 0}
+        onClick={() => onStart(parseCards(text))}
+      >
+        Start ({count} {count === 1 ? "card" : "cards"})
+      </button>
+    </div>
+  );
+}
+
+function MiniCard({ card, correct }) {
+  return (
+    <div className={`mini-card ${correct ? "correct" : "wrong"}`}>
+      {correct ? card.question : card.answer}
+    </div>
+  );
+}
+
+// States: "idle" -> "recording" -> "processing" -> "correct" | "wrong-showing" -> "dismiss" -> "idle"
+// correct: card flies away immediately, next card
+// wrong-showing: card flipped, waiting for space to dismiss
+// dismiss: card flies away, next card
+
+function Cards({ cards, onBack }) {
+  const [index, setIndex] = useState(0);
+  const [phase, setPhase] = useState("idle"); // idle | recording | processing | correct | wrong-showing | flying
+  const [flipped, setFlipped] = useState(false);
+  const [flyClass, setFlyClass] = useState("");
+  const [status, setStatus] = useState("");
+  const [transcript, setTranscript] = useState("");
+  const [correctPile, setCorrectPile] = useState([]);
+  const [wrongPile, setWrongPile] = useState([]);
+
+  const mediaRecRef = useRef(null);
+  const chunksRef = useRef([]);
+  const indexRef = useRef(index);
+  indexRef.current = index;
+
+  const done = index >= cards.length;
+
+  const flyAndNext = useCallback((isCorrect) => {
+    setFlyClass(isCorrect ? "fly-correct" : "fly-wrong");
+    setPhase("flying");
+    setTimeout(() => {
+      setFlyClass("");
+      setFlipped(false);
+      setTranscript("");
+      setStatus("");
+      setIndex(i => i + 1);
+      setPhase("idle");
+    }, 500);
+  }, []);
+
+  const startRecording = useCallback(async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mr = new MediaRecorder(stream, { mimeType: "audio/webm;codecs=opus" });
+      chunksRef.current = [];
+      mr.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
+      mr.onstop = async () => {
+        stream.getTracks().forEach(t => t.stop());
+        const blob = new Blob(chunksRef.current, { type: "audio/webm" });
+        setPhase("processing");
+
+        try {
+          setStatus("Transcribing...");
+          const text = await transcribeAudio(blob);
+          setTranscript(text);
+
+          const card = cards[indexRef.current];
+          setStatus("Checking...");
+          const result = await checkAnswer(card.question, card.answer, text);
+
+          if (result.correct) {
+            setCorrectPile(p => [...p, card]);
+            setStatus(result.comment || "Correct!");
+            setPhase("correct");
+            // Fly away after brief pause
+            setTimeout(() => flyAndNext(true), 800);
+          } else {
+            setWrongPile(p => [...p, card]);
+            setFlipped(true);
+            setStatus(result.comment || "Wrong");
+            setPhase("wrong-showing");
+          }
+        } catch (err) {
+          setStatus("Error: " + err.message);
+          setPhase("idle");
+        }
+      };
+      mr.start();
+      mediaRecRef.current = mr;
+      setPhase("recording");
+      setStatus("Recording...");
+      setTranscript("");
+    } catch (err) {
+      setStatus("Mic access denied");
+    }
+  }, [cards, flyAndNext]);
+
+  const stopRecording = useCallback(() => {
+    if (mediaRecRef.current && mediaRecRef.current.state === "recording") {
+      mediaRecRef.current.stop();
+    }
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.code !== "Space" && e.code !== "Escape") return;
+      e.preventDefault();
+
+      if (e.code === "Escape") { onBack(); return; }
+
+      // Space behavior depends on phase
+      if (phase === "idle" && !done) startRecording();
+      else if (phase === "recording") stopRecording();
+      else if (phase === "wrong-showing") flyAndNext(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [phase, done, startRecording, stopRecording, flyAndNext, onBack]);
+
+  if (done) {
+    return (
+      <div className="app">
+        <div className="pile pile-top">
+          {correctPile.length > 0 && <div className="pile-label">{"\u2713"} Correct ({correctPile.length})</div>}
+          {correctPile.map((c, i) => <MiniCard key={i} card={c} correct={true} />)}
+        </div>
+        <div className="pile pile-bottom">
+          {wrongPile.length > 0 && <div className="pile-label">{"\u2717"} Wrong ({wrongPile.length})</div>}
+          {wrongPile.map((c, i) => <MiniCard key={i} card={c} correct={false} />)}
+        </div>
+        <div className="done">
+          <h2>Done!</h2>
+          <div className="done-stats">
+            <span style={{color: "var(--green)"}}>{"\u2713"} {correctPile.length}</span>
+            {" / "}
+            <span style={{color: "var(--red)"}}>{"\u2717"} {wrongPile.length}</span>
+            {" / "}
+            {cards.length} cards
+          </div>
+          <button className="btn" onClick={onBack}>&times; Edit</button>
+        </div>
+      </div>
+    );
+  }
+
+  const card = cards[index];
+
+  return (
+    <div className="app">
+      {/* Correct pile — top left */}
+      <div className="pile pile-top">
+        {correctPile.length > 0 && <div className="pile-label">{"\u2713"} {correctPile.length}</div>}
+        {correctPile.map((c, i) => <MiniCard key={i} card={c} correct={true} />)}
+      </div>
+
+      {/* Wrong pile — bottom left */}
+      <div className="pile pile-bottom">
+        {wrongPile.length > 0 && <div className="pile-label">{"\u2717"} {wrongPile.length}</div>}
+        {wrongPile.map((c, i) => <MiniCard key={i} card={c} correct={false} />)}
+      </div>
+
+      <div className="counter">
+        {index + 1} / {cards.length}
+      </div>
+
+      <div className={`scene ${flyClass}`}>
+        <div className={`card ${flipped ? "flipped" : ""}`}>
+          <div className="card-face card-front">
+            <span className="card-label">Question</span>
+            <div className="card-text">{card.question}</div>
+            <span className="hint">
+              {phase === "idle" ? "space to record" :
+               phase === "recording" ? "space to stop" : ""}
+            </span>
+          </div>
+          <div className="card-face card-back">
+            <span className="card-label">Answer</span>
+            <div className="card-text">{card.answer}</div>
+            <span className="hint">
+              {phase === "wrong-showing" ? "space for next card" : ""}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="voice-area">
+        <button
+          className={`btn-mic ${phase === "recording" ? "recording" : ""} ${phase === "processing" ? "processing" : ""}`}
+          onClick={() => {
+            if (phase === "idle") startRecording();
+            else if (phase === "recording") stopRecording();
+          }}
+          disabled={phase === "processing" || phase === "flying" || phase === "correct"}
+        >
+          {phase === "processing" ? "\u23F3" : phase === "recording" ? "\u23F9" : "\u{1F3A4}"}
+        </button>
+        <div className="voice-status">{status}</div>
+        {transcript && <div className="voice-transcript">"{transcript}"</div>}
+      </div>
+
+      <div className="controls">
+        <button className="btn" onClick={onBack}>&times; Edit</button>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [cards, setCards] = useState(null);
+
+  return cards
+    ? <Cards cards={cards} onBack={() => setCards(null)} />
+    : <div className="app"><Editor onStart={setCards} /></div>;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
