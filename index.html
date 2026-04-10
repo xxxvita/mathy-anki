@@ -439,9 +439,15 @@
 <script type="text/babel" data-type="module">
 const { useState, useEffect, useCallback, useRef } = React;
 
-const GATEWAY = "https://western-before-scholars-prostores.trycloudflare.com";
-const API_KEY = "REMOVED";
-// ElevenLabs key not needed — STT goes through Gateway
+// Keys are entered by the user as a single string: "gateway_url|tpk_key"
+// Stored in localStorage so they only need to enter once.
+const KEYS_STORAGE = "anki-keys";
+
+function getKeys() {
+  const raw = localStorage.getItem(KEYS_STORAGE) || "";
+  const [gw, key] = raw.split("|");
+  return (gw && key) ? { gateway: gw.trim(), apiKey: key.trim() } : null;
+}
 
 const EXAMPLE = `Что такое производная функции?
 Предел отношения приращения функции к приращению аргумента
@@ -509,13 +515,13 @@ async function webmToWav(webmBlob) {
 
 // ---- API helpers ----
 
-async function transcribeAudio(audioBlob) {
+async function transcribeAudio(audioBlob, keys) {
   const wavBlob = await webmToWav(audioBlob);
   const form = new FormData();
   form.append("file", wavBlob, "recording.wav");
-  const res = await fetch(`${GATEWAY}/v1/stt/file`, {
+  const res = await fetch(`${keys.gateway}/v1/stt/file`, {
     method: "POST",
-    headers: { "Authorization": `Bearer ${API_KEY}` },
+    headers: { "Authorization": `Bearer ${keys.apiKey}` },
     body: form,
   });
   if (!res.ok) {
@@ -526,11 +532,11 @@ async function transcribeAudio(audioBlob) {
   return data.text;
 }
 
-async function checkAnswer(question, correctAnswer, userAnswer) {
-  const res = await fetch(`${GATEWAY}/v1/openai/chat/completions`, {
+async function checkAnswer(question, correctAnswer, userAnswer, keys) {
+  const res = await fetch(`${keys.gateway}/v1/openai/chat/completions`, {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${API_KEY}`,
+      "Authorization": `Bearer ${keys.apiKey}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -539,9 +545,11 @@ async function checkAnswer(question, correctAnswer, userAnswer) {
       messages: [
         {
           role: "system",
-          content: `You are a strict flashcard grader. Compare the user's spoken answer to the correct answer.
-Reply ONLY with valid JSON: {"correct": true/false, "comment": "brief explanation in Russian, 1 sentence"}.
-Be lenient with wording — if the meaning matches, it's correct. But the key facts must be present.`
+          content: `You grade flashcard answers from speech-to-text input. The user's answer was transcribed from voice, so expect STT artifacts:
+- Proper nouns, names, and foreign words may be misspelled or phonetically approximated — if it SOUNDS similar to the correct name, count it as correct.
+- Minor wording differences are fine — grade on meaning, not exact phrasing.
+- BUT: dates, numbers, and factual claims must be accurate. Wrong year or wrong number = incorrect.
+Reply ONLY with valid JSON: {"correct": true/false, "comment": "brief explanation in Russian, 1 sentence"}.`
         },
         {
           role: "user",
@@ -557,6 +565,50 @@ Be lenient with wording — if the meaning matches, it's correct. But the key fa
 }
 
 // ---- Components ----
+
+function KeysScreen({ onSave }) {
+  const [val, setVal] = useState("");
+  const valid = val.includes("|") && val.split("|")[0].startsWith("http") && val.split("|")[1].startsWith("tpk_");
+
+  return (
+    <div className="editor">
+      <h1>Anki Cards</h1>
+      <div className="editor-hint">
+        Вставьте строку подключения:<br/>
+        <code>https://gateway-url|tpk_your_key</code>
+      </div>
+      <input
+        type="text"
+        value={val}
+        onChange={(e) => setVal(e.target.value)}
+        placeholder="https://your-gateway.com|tpk_..."
+        spellCheck={false}
+        autoFocus
+        style={{
+          width: "100%",
+          background: "var(--surface)",
+          border: "1px solid var(--border)",
+          borderRadius: "14px",
+          color: "var(--text)",
+          fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+          fontSize: "14px",
+          padding: "16px 20px",
+          outline: "none",
+        }}
+      />
+      <button
+        className="btn-start"
+        disabled={!valid}
+        onClick={() => {
+          localStorage.setItem(KEYS_STORAGE, val.trim());
+          onSave();
+        }}
+      >
+        Save
+      </button>
+    </div>
+  );
+}
 
 function Editor({ onStart }) {
   const saved = localStorage.getItem(STORAGE_KEY) || "";
@@ -613,7 +665,7 @@ function MiniCard({ card, correct }) {
 // wrong-showing: card flipped, waiting for space to dismiss
 // dismiss: card flies away, next card
 
-function Cards({ cards, onBack }) {
+function Cards({ cards, onBack, keys }) {
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState("idle"); // idle | recording | processing | correct | wrong-showing | flying
   const [flipped, setFlipped] = useState(false);
@@ -656,12 +708,12 @@ function Cards({ cards, onBack }) {
 
         try {
           setStatus("Transcribing...");
-          const text = await transcribeAudio(blob);
+          const text = await transcribeAudio(blob, keys);
           setTranscript(text);
 
           const card = cards[indexRef.current];
           setStatus("Checking...");
-          const result = await checkAnswer(card.question, card.answer, text);
+          const result = await checkAnswer(card.question, card.answer, text, keys);
 
           if (result.correct) {
             setCorrectPile(p => [...p, card]);
@@ -802,9 +854,15 @@ function Cards({ cards, onBack }) {
 
 function App() {
   const [cards, setCards] = useState(null);
+  const [hasKeys, setHasKeys] = useState(!!getKeys());
+  const keys = getKeys();
+
+  if (!hasKeys) {
+    return <div className="app"><KeysScreen onSave={() => setHasKeys(true)} /></div>;
+  }
 
   return cards
-    ? <Cards cards={cards} onBack={() => setCards(null)} />
+    ? <Cards cards={cards} keys={keys} onBack={() => setCards(null)} />
     : <div className="app"><Editor onStart={setCards} /></div>;
 }
 
