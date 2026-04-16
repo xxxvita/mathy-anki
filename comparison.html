@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сравнение с лидерами рынка — AnkiConnect Desktop</title>
+<meta name="description" content="Честное сравнение AnkiConnect Desktop с 8 крупнейшими сервисами изучения английского: Quizlet, Puzzle English, Busuu, Memrise, Rosetta Stone, Pimsleur, italki, LingQ.">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --bg-card: #12172a;
+    --bg-card-hover: #1a2138;
+    --border: #1f2842;
+    --border-strong: #2d3a5f;
+    --accent: #7c9eff;
+    --accent-bright: #a0b9ff;
+    --good: #5ed8a2;
+    --warn: #ffb86c;
+    --bad: #ff6b6b;
+    --us: #8affc1;
+    --us-bg: rgba(138, 255, 193, 0.08);
+    --text: #e8ecf4;
+    --text-dim: #9ba8c4;
+    --text-muted: #6b7794;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .container-wide {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 80px 24px 60px;
+    background: radial-gradient(ellipse at top, #1a2040 0%, var(--bg) 70%);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-label {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 4.5vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 .accent {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--text-dim);
+    max-width: 820px;
+    margin-bottom: 24px;
+  }
+
+  .hero-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 16px;
+  }
+
+  .hero-nav {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .hero-nav .container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    overflow-x: auto;
+  }
+
+  .hero-nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .hero-nav a:hover {
+    color: var(--accent);
+    background: var(--bg-card);
+  }
+
+  /* Sections */
+  section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  section h2 {
+    font-size: clamp(24px, 3.5vw, 36px);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  section .section-sub {
+    color: var(--text-dim);
+    font-size: 16px;
+    margin-bottom: 40px;
+    max-width: 780px;
+  }
+
+  /* Methodology note */
+  .note-box {
+    background: var(--bg-card);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin: 24px 0;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  .note-box strong { color: var(--text); }
+
+  /* Big Comparison Table */
+  .table-wrap {
+    overflow-x: auto;
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  table.big-compare {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 1100px;
+  }
+
+  table.big-compare th,
+  table.big-compare td {
+    padding: 10px 8px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  table.big-compare th:last-child,
+  table.big-compare td:last-child {
+    border-right: none;
+  }
+
+  table.big-compare thead th {
+    background: var(--bg-card-hover);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    padding: 14px 8px;
+    position: sticky;
+    top: 50px;
+    z-index: 10;
+  }
+
+  table.big-compare th.us-col,
+  table.big-compare td.us-col {
+    background: var(--us-bg);
+    border-left: 2px solid var(--us);
+    border-right: 2px solid var(--us);
+  }
+
+  table.big-compare th.us-col {
+    color: var(--us);
+  }
+
+  table.big-compare td.feature-name {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text);
+    padding-left: 16px;
+    min-width: 200px;
+    font-size: 13px;
+    background: var(--bg-card);
+    position: sticky;
+    left: 0;
+    z-index: 5;
+  }
+
+  table.big-compare tbody tr:hover td {
+    background: var(--bg-card-hover);
+  }
+
+  table.big-compare tbody tr:hover td.us-col {
+    background: rgba(138, 255, 193, 0.12);
+  }
+
+  table.big-compare tbody tr:hover td.feature-name {
+    background: var(--bg-card-hover);
+  }
+
+  .cell-yes { color: var(--good); font-weight: 600; }
+  .cell-no { color: var(--bad); opacity: 0.7; }
+  .cell-partial { color: var(--warn); }
+  .cell-us { color: var(--us); font-weight: 700; }
+  .cell-note {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: normal;
+    margin-top: 2px;
+  }
+
+  .row-section {
+    background: var(--bg) !important;
+  }
+
+  .row-section td {
+    padding: 20px 16px 10px !important;
+    text-align: left !important;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-weight: 700;
+    border-right: none !important;
+  }
+
+  /* Service cards */
+  .services-grid {
+    display: grid;
+    gap: 28px;
+  }
+
+  .service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+  }
+
+  .service-card.us {
+    background: linear-gradient(135deg, rgba(138, 255, 193, 0.05) 0%, var(--bg-card) 60%);
+    border-color: rgba(138, 255, 193, 0.3);
+  }
+
+  .service-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .service-title {
+    flex: 1;
+  }
+
+  .service-title h3 {
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+
+  .service-title .tagline {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  .service-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .service-meta .price {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .service-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .service-body h4 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .service-body ul {
+    list-style: none;
+    font-size: 14px;
+  }
+
+  .service-body li {
+    padding: 6px 0;
+    color: var(--text-dim);
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .service-body .strengths li::before {
+    content: "+";
+    position: absolute;
+    left: 0;
+    color: var(--good);
+    font-weight: bold;
+  }
+
+  .service-body .weaknesses li::before {
+    content: "−";
+    position: absolute;
+    left: 0;
+    color: var(--bad);
+    font-weight: bold;
+  }
+
+  .service-verdict {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: rgba(124, 158, 255, 0.06);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  .service-verdict strong { color: var(--text); }
+
+  .service-card.us .service-verdict {
+    background: rgba(138, 255, 193, 0.08);
+    border-left-color: var(--us);
+  }
+
+  /* Summary */
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .verdict-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .verdict-card h3 {
+    color: var(--accent);
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+
+  .verdict-card p {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .verdict-card strong { color: var(--text); }
+
+  /* Final */
+  .final-section {
+    text-align: center;
+    padding: 80px 24px;
+    background: radial-gradient(ellipse at center, #1a2040 0%, var(--bg) 70%);
+    border-bottom: none;
+  }
+
+  .final-section h2 {
+    margin-bottom: 20px;
+  }
+
+  .final-section p {
+    color: var(--text-dim);
+    font-size: 17px;
+    max-width: 720px;
+    margin: 0 auto 14px;
+  }
+
+  .final-section a {
+    color: var(--accent);
+  }
+
+  footer {
+    padding: 30px 24px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  footer a { color: var(--text-dim); }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .service-body { grid-template-columns: 1fr; }
+    .verdict-grid { grid-template-columns: 1fr; }
+    table.big-compare { font-size: 12px; min-width: 900px; }
+    .hero-nav .container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-label">Сравнение крупнейших решений · Апрель 2026</div>
+    <h1>Честное сравнение с <span class="accent">лидерами рынка</span> изучения английского</h1>
+    <p class="hero-sub">
+      Восемь крупнейших сервисов для изучения английского — от классического Pimsleur до современного Busuu с AI. Что каждый из них делает хорошо, где мы сильнее, а где честно слабее. Без маркетинга.
+    </p>
+    <div class="hero-meta">
+      Данные собраны из официальных сайтов, обзоров 2025–2026 и пользовательских отчётов.
+      Некоторые пункты сопровождаются пометками «требует уточнения» — сервисы быстро меняются.
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="hero-nav">
+  <div class="container">
+    <a href="#table">Таблица</a>
+    <a href="#us">AnkiConnect Desktop</a>
+    <a href="#quizlet">Quizlet</a>
+    <a href="#puzzle">Puzzle English</a>
+    <a href="#busuu">Busuu</a>
+    <a href="#memrise">Memrise</a>
+    <a href="#rosetta">Rosetta Stone</a>
+    <a href="#pimsleur">Pimsleur</a>
+    <a href="#italki">italki</a>
+    <a href="#lingq">LingQ</a>
+    <a href="#verdict">Итог</a>
+  </div>
+</nav>
+
+<!-- METHODOLOGY -->
+<section>
+  <div class="container">
+    <h2>Методология</h2>
+    <p class="section-sub">Как собирались данные и почему таблица должна читаться с критикой.</p>
+
+    <div class="note-box">
+      <p><strong>Источники.</strong> Официальные сайты сервисов, обзоры специализированных ресурсов (Langoly, Lingopie, Copycat Cafe, FahimAI, TestPrepInsight), пресс-релизы Chegg (владелец Busuu), документация italki Blog. Для русскоязычных — материалы на Xakep.ru и Wikipedia. Для AnkiConnect Desktop — наша дорожная карта <a href="https://github.com/xxxvita/mathy-anki" style="color: var(--accent);">mathy-anki</a>.</p>
+      <p style="margin-top:10px"><strong>Состояние продуктов.</strong> Все сравниваемые сервисы — действующие, с актуальными ценами 2026. Наш продукт (AnkiConnect Desktop) находится в активной разработке; часть функций уже работает, часть запланирована к ближайшим релизам согласно дорожной карте (файлы 01–16).</p>
+      <p style="margin-top:10px"><strong>Честность.</strong> Мы не скрываем слабые стороны. Продукт для самостоятельных учеников выигрывает не у всех и не всегда — у каждого сервиса есть сценарий, где он лучший выбор. В конце документа мы указываем, когда стоит выбрать не нас.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BIG COMPARISON TABLE -->
+<section id="table">
+  <div class="container-wide">
+    <h2>Большая сравнительная таблица</h2>
+    <p class="section-sub">30 ключевых параметров × 9 сервисов. Пролистайте вправо на мобильном.</p>
+
+    <div class="table-wrap">
+      <table class="big-compare">
+        <thead>
+          <tr>
+            <th style="text-align:left; padding-left:16px;">Параметр</th>
+            <th class="us-col">AnkiConnect<br>Desktop</th>
+            <th>Quizlet</th>
+            <th>Puzzle<br>English</th>
+            <th>Busuu</th>
+            <th>Memrise</th>
+            <th>Rosetta<br>Stone</th>
+            <th>Pimsleur</th>
+            <th>italki</th>
+            <th>LingQ</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="row-section"><td colspan="10">Контент и материалы</td></tr>
+
+          <tr>
+            <td class="feature-name">Смотреть любое своё видео (фильмы, YouTube, локальные файлы)</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Только их</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Только их</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Частично</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Курированная библиотека контента</td>
+            <td class="us-col cell-partial">Курс М-Ж</td>
+            <td class="cell-partial">Готовые наборы</td>
+            <td class="cell-yes">Огромная</td>
+            <td class="cell-yes">CEFR-уроки</td>
+            <td class="cell-yes">Видео носителей</td>
+            <td class="cell-yes">Immersion-курс</td>
+            <td class="cell-partial">15 часов Level 1</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-yes">Огромная</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Загрузка локальных видеофайлов</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Импорт текстов</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Интеграция с YouTube</td>
+            <td class="us-col cell-us">Да<span class="cell-note">загрузка, субтитры, Shorts</span></td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Импорт</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Subtitle tap-to-translate (клик по слову)</td>
+            <td class="us-col cell-us">Yomitan+</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">В пазлах</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-yes">Да</td>
+          </tr>
+
+          <tr class="row-section"><td colspan="10">Голос и речь</td></tr>
+
+          <tr>
+            <td class="feature-name">Распознавание речи (ASR)</td>
+            <td class="us-col cell-us">Локально+облачно</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Базовое</td>
+            <td class="cell-partial">Да</td>
+            <td class="cell-yes">TruAccent</td>
+            <td class="cell-partial">Voice Coach (beta)</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Shadowing (повтор за диктором)</td>
+            <td class="us-col cell-us">На любом видео</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">На клипах</td>
+            <td class="cell-partial">На предложениях</td>
+            <td class="cell-yes">На фразах урока</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Оценка живой речи по рубрике</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">AI Conversations</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Только живой учитель</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Пересказ своими словами с обязательными выражениями</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">С учителем</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Голосовой чат с AI (role-play)</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-yes">Conversations</td>
+            <td class="cell-yes">MemBot</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Локальное ASR без интернета</td>
+            <td class="us-col cell-us">HandyPipeline</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr class="row-section"><td colspan="10">AI и персонализация</td></tr>
+
+          <tr>
+            <td class="feature-name">AI-генерация контента</td>
+            <td class="us-col cell-us">Да<span class="cell-note">под ваш словарь</span></td>
+            <td class="cell-yes">Magic Notes</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-yes">Да</td>
+            <td class="cell-yes">AI Buddies</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-yes">Plus</td>
+            <td class="cell-partial">AI подсказки</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Память персональных ошибок с категоризацией</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Generic review</td>
+            <td class="cell-partial">Generic</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Тренажёр из ваших ошибок (не случайных)</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Еженедельный AI-отчёт на ваших данных</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">AI summary урока</td>
+            <td class="cell-partial">Статистика</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Персонализация по профилю (хобби, профессия)</td>
+            <td class="us-col cell-us">Во всех режимах</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Частично</td>
+            <td class="cell-partial">AI Buddies</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Через учителя</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr class="row-section"><td colspan="10">Словарь и повторения</td></tr>
+
+          <tr>
+            <td class="feature-name">Открытый реестр «знакомых слов»</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">10 на free</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-yes">Ключевая</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Импорт словаря из других сервисов</td>
+            <td class="us-col cell-us">CSV/JSON/Skyeng/LingQ</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Только из файлов</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Интеграция с Anki</td>
+            <td class="us-col cell-us">Глубокая<span class="cell-note">с обогащением</span></td>
+            <td class="cell-no">Конкурент</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Убрали</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Вырезка клипа YouTube в карточку</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Обогащение карточек примерами от LLM</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-partial">Magic Notes</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr class="row-section"><td colspan="10">Учитель ↔ Ученик</td></tr>
+
+          <tr>
+            <td class="feature-name">Учительские скрипты к видео</td>
+            <td class="us-col cell-us">Да<span class="cell-note">file-based</span></td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Отчёт с ошибками ученика учителю</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Ручные заметки</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Живой преподаватель</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Менторы платно</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Live tutoring $19.99</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-yes">Ключевая фича</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Community feedback от носителей</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-yes">Бесплатно</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Community hub</td>
+            <td class="cell-partial">Общение</td>
+          </tr>
+
+          <tr class="row-section"><td colspan="10">Платформа и приватность</td></tr>
+
+          <tr>
+            <td class="feature-name">Работа офлайн</td>
+            <td class="us-col cell-us">Полная</td>
+            <td class="cell-partial">Только Plus</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Premium</td>
+            <td class="cell-partial">Pro</td>
+            <td class="cell-partial">Скачанные уроки</td>
+            <td class="cell-yes">Аудио</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Локальный AI без оплаты (LM Studio/Ollama)</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Данные остаются на вашем устройстве</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Облако</td>
+            <td class="cell-no">Облако</td>
+            <td class="cell-no">Облако</td>
+            <td class="cell-no">Облако</td>
+            <td class="cell-no">Облако</td>
+            <td class="cell-no">Облако</td>
+            <td class="cell-no">Облако</td>
+            <td class="cell-no">Облако</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Десктопное приложение (не браузер)</td>
+            <td class="us-col cell-us">Electron</td>
+            <td class="cell-no">Web+mobile</td>
+            <td class="cell-no">Web+mobile</td>
+            <td class="cell-no">Web+mobile</td>
+            <td class="cell-no">Web+mobile</td>
+            <td class="cell-yes">Да</td>
+            <td class="cell-no">Mobile</td>
+            <td class="cell-no">Web+mobile</td>
+            <td class="cell-no">Web+mobile</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Мобильное приложение</td>
+            <td class="cell-no">Нет<span class="cell-note">пока</span></td>
+            <td class="cell-yes">iOS+Android</td>
+            <td class="cell-yes">iOS+Android</td>
+            <td class="cell-yes">iOS+Android</td>
+            <td class="cell-yes">iOS+Android</td>
+            <td class="cell-yes">iOS+Android</td>
+            <td class="cell-yes">iOS+Android</td>
+            <td class="cell-yes">iOS+Android</td>
+            <td class="cell-yes">iOS+Android</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Русский интерфейс</td>
+            <td class="us-col cell-us">Да<span class="cell-note">родной</span></td>
+            <td class="cell-yes">Да</td>
+            <td class="cell-yes">Да</td>
+            <td class="cell-yes">Да</td>
+            <td class="cell-partial">Частично</td>
+            <td class="cell-yes">Да</td>
+            <td class="cell-partial">Частично</td>
+            <td class="cell-yes">Да</td>
+            <td class="cell-yes">Да</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Открытые форматы (Anki, SRT, JSON)</td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Закрытая</td>
+            <td class="cell-no">Закрытая</td>
+            <td class="cell-no">Закрытая</td>
+            <td class="cell-no">Закрытая</td>
+            <td class="cell-no">Закрытая</td>
+            <td class="cell-no">Закрытая</td>
+            <td class="cell-no">Закрытая</td>
+            <td class="cell-partial">Частично</td>
+          </tr>
+
+          <tr class="row-section"><td colspan="10">Цены</td></tr>
+
+          <tr>
+            <td class="feature-name">Базовая платная подписка (ориентировочно)</td>
+            <td class="us-col cell-us">~LingQ</td>
+            <td class="cell-partial">~$36/год</td>
+            <td class="cell-partial">833₽/мес</td>
+            <td class="cell-partial">~$6.85/мес</td>
+            <td class="cell-partial">~$60/год</td>
+            <td class="cell-partial">~$130/год</td>
+            <td class="cell-partial">$19.95/мес</td>
+            <td class="cell-partial">$4-40/урок</td>
+            <td class="cell-partial">~$14/мес</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Бесплатная версия даёт что-то серьёзное</td>
+            <td class="us-col cell-us">Да<span class="cell-note">student free</span></td>
+            <td class="cell-yes">Да</td>
+            <td class="cell-no">Очень ограниченная</td>
+            <td class="cell-partial">1 курс</td>
+            <td class="cell-yes">Да</td>
+            <td class="cell-no">Trial</td>
+            <td class="cell-no">7 дней</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-partial">Ограниченная</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:20px; font-size:13px; color: var(--text-muted); max-width:900px;">
+      Условные обозначения: <span class="cell-yes">зелёный</span> — функция есть, <span class="cell-partial">жёлтый</span> — частично/ограниченно, <span class="cell-no">красный</span> — отсутствует, <span class="cell-us">ярко-зелёный</span> — наши сильные стороны.
+    </p>
+  </div>
+</section>
+
+<!-- SERVICE CARDS -->
+<section>
+  <div class="container">
+    <h2>Детально по каждому сервису</h2>
+    <p class="section-sub">Сильные и слабые стороны каждого конкурента в формате карточки. Начинаем с нас.</p>
+
+    <div class="services-grid">
+
+      <!-- US -->
+      <div class="service-card us" id="us">
+        <div class="service-header">
+          <div class="service-title">
+            <h3>AnkiConnect Desktop <span style="color: var(--us); font-size: 14px;">(это мы)</span></h3>
+            <div class="tagline">Настольное приложение для превращения любого видео в персональный речевой тренажёр</div>
+          </div>
+          <div class="service-meta">
+            <div class="price">~LingQ / мес</div>
+            <div>Windows · Linux · macOS</div>
+            <div>В активной разработке</div>
+          </div>
+        </div>
+        <div class="service-body">
+          <div class="strengths">
+            <h4>Сильные стороны</h4>
+            <ul>
+              <li>Любое видео — локальный файл, YouTube, фильм, Shorts, урок учителя — становится тренажёром</li>
+              <li>Реальная голосовая практика: пересказ, role-play, shadowing на любом материале с оценкой по рубрике</li>
+              <li>Открытый реестр знакомых слов с импортом из любых сервисов (LingQ, Skyeng, Duolingo, Anki)</li>
+              <li>Персональная память ошибок + тренажёр слабых мест на ваших реальных промахах, а не на случайных</li>
+              <li>Еженедельный AI-отчёт по вашим данным, как от личного тренера</li>
+              <li>Учительские скрипты к видео (file-based) — уникальная фича, которой нет нигде</li>
+              <li>Глубокая интеграция с настоящей Anki: вырезка клипов, обогащение карточек, тегирование источника</li>
+              <li>Локальный AI и ASR (HandyPipeline/Whisper) — работает офлайн бесплатно</li>
+              <li>Персонализация под ваши хобби и профессию во всех режимах</li>
+              <li>Курс Мишина-Жигана встроен, тренажёры произношения</li>
+              <li>Данные остаются на вашем устройстве — приватность first-class</li>
+            </ul>
+          </div>
+          <div class="weaknesses">
+            <h4>Слабые стороны</h4>
+            <ul>
+              <li>Нет мобильного приложения — пока только десктоп</li>
+              <li>Нет синхронизации между устройствами (обратная сторона приватности)</li>
+              <li>Нет собственной курированной библиотеки уровня LingQ — вы приносите контент</li>
+              <li>Нет живого преподавателя — мы его дополняем, а не заменяем</li>
+              <li>Нет геймификации, стриков и уведомлений — не заманиваем игрой</li>
+              <li>Не для полного нуля: нужен хотя бы A1, чтобы было с чем работать</li>
+              <li>Нет community feedback от носителей</li>
+              <li>Нет готового пути на полгода — свобода = ваша ответственность</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-verdict">
+          <strong>Когда выбрать нас:</strong> вы уже учитесь, вам нужна голосовая практика, собственные материалы (сериалы, YouTube), персональный тренажёр по ошибкам, глубокая интеграция с Anki, приватность и возможность связать с преподавателем через учительские скрипты.
+        </div>
+      </div>
+
+      <!-- Quizlet -->
+      <div class="service-card" id="quizlet">
+        <div class="service-header">
+          <div class="service-title">
+            <h3>Quizlet</h3>
+            <div class="tagline">Крупнейшая в мире платформа флэшкарт с AI-генерацией из документов</div>
+          </div>
+          <div class="service-meta">
+            <div class="price">~$36 / год</div>
+            <div>Web · iOS · Android</div>
+          </div>
+        </div>
+        <div class="service-body">
+          <div class="strengths">
+            <h4>Сильные стороны</h4>
+            <ul>
+              <li>Гигантская библиотека готовых наборов карточек от 500+ млн пользователей</li>
+              <li>Magic Notes — превращение PDF, конспектов, фотографий в карточки и тесты одной кнопкой</li>
+              <li>Полированный адаптивный режим Learn с встроенным SRS за 15+ лет</li>
+              <li>Q-Chat AI-тьютор для объяснений</li>
+              <li>Дешёвая подписка (~$36 в год) и бесплатная версия</li>
+              <li>Хорошее мобильное приложение с синхронизацией</li>
+              <li>Универсален для любого предмета, не только языков</li>
+            </ul>
+          </div>
+          <div class="weaknesses">
+            <h4>Слабые стороны для изучающего английский</h4>
+            <ul>
+              <li>Полностью отсутствует работа с видео, YouTube, фильмами, субтитрами</li>
+              <li>Ноль голосовой практики: нет распознавания речи, нет shadowing, нет оценки произношения</li>
+              <li>Только текстовые карточки — нет иммерсивного контента</li>
+              <li>Не интегрируется с Anki (конкурент, а не партнёр)</li>
+              <li>Нет tracking ошибок между режимами и сессиями</li>
+              <li>Нет учительских сценариев поверх реального контента</li>
+              <li>Контент обобщённый, не персонализируется под ваш уровень</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-verdict">
+          <strong>Когда выбрать:</strong> вам нужно быстро перегнать учебный материал в карточки для подготовки к экзамену. Не для систематического изучения английского через речь и контент.
+        </div>
+      </div>
+
+      <!-- Puzzle English -->
+      <div class="service-card" id="puzzle">
+        <div class="service-header">
+          <div class="service-title">
+            <h3>Puzzle English</h3>
+            <div class="tagline">Русскоязычный сервис с фирменной механикой «собери фразу из слов» на видео</div>
+          </div>
+          <div class="service-meta">
+            <div class="price">833 ₽/мес при годовой</div>
+            <div>Web · iOS · Android</div>
+          </div>
+        </div>
+        <div class="service-body">
+          <div class="strengths">
+            <h4>Сильные стороны</h4>
+            <ul>
+              <li>~3 000 видеопазлов и ~32 000 аудиопазлов — огромная курированная библиотека</li>
+              <li>Механика «собери фразу из перемешанных слов» реально качает распознавание на слух</li>
+              <li>Выбор по акценту (US/UK/AU) — уникально</li>
+              <li>Отдельный продукт Puzzle Movies с фильмами и сериалами</li>
+              <li>Менторские сессии с живым преподавателем включены в премиум</li>
+              <li>Полностью русскоязычный UX с поддержкой</li>
+              <li>Грамматический тренажёр, подкасты, Oxford-тест — всё в одном</li>
+            </ul>
+          </div>
+          <div class="weaknesses">
+            <h4>Слабые стороны</h4>
+            <ul>
+              <li>Нельзя загрузить своё видео, YouTube, PDF или локальный файл — запертая экосистема</li>
+              <li>Нет распознавания речи, shadowing, pronunciation trainer — активная речь только через ментора</li>
+              <li>Нет современного AI (LLM-оценка, генерация, персонализация)</li>
+              <li>Собственный SRS закрытый и непрозрачный, лимитирован на бесплатной версии (1 слово/день)</li>
+              <li>Нет экспорта в Anki — словарь заперт</li>
+              <li>На бесплатной версии словарь ограничен 10 словами</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-verdict">
+          <strong>Когда выбрать:</strong> русскоязычный новичок или ученик среднего уровня, который хочет готовую курированную библиотеку и не готов искать контент самостоятельно. Хорошая отправная точка, но потолок ограничен.
+        </div>
+      </div>
+
+      <!-- Busuu -->
+      <div class="service-card" id="busuu">
+        <div class="service-header">
+          <div class="service-title">
+            <h3>Busuu</h3>
+            <div class="tagline">Структурированные CEFR-курсы с AI-собеседником и community feedback от носителей</div>
+          </div>
+          <div class="service-meta">
+            <div class="price">~$6.85 / мес</div>
+            <div>Web · iOS · Android</div>
+          </div>
+        </div>
+        <div class="service-body">
+          <div class="strengths">
+            <h4>Сильные стороны</h4>
+            <ul>
+              <li>CEFR-структура A1–C1 с чёткой прогрессией, официальный сертификат McGraw-Hill</li>
+              <li>Busuu Conversations (2024–2026) — AI-собеседник с оценкой речи в real-time</li>
+              <li>Community feedback — живые носители правят ваши тексты и аудио, бесплатно</li>
+              <li>16 языков интерфейса, включая русский</li>
+              <li>Низкий порог входа, отличный UX для новичков A1-B1</li>
+              <li>Базовое распознавание речи есть</li>
+              <li>Недорого — около $6.85 в месяц по годовой подписке</li>
+            </ul>
+          </div>
+          <div class="weaknesses">
+            <h4>Слабые стороны</h4>
+            <ul>
+              <li>Нет работы с произвольным контентом — только их уроки</li>
+              <li>Speech recognition поверхностный, без рубричной оценки pronunciation/fluency/grammar</li>
+              <li>Закрытая экосистема — нет экспорта в Anki, нельзя мешать со своим workflow</li>
+              <li>Потолок ~B2 по реальной глубине, выше — мало контента</li>
+              <li>AI Conversations хорош в сценариях, но не для swoего просмотренного видео</li>
+              <li>Нет tracking конкретных ошибок с категоризацией</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-verdict">
+          <strong>Когда выбрать:</strong> вы начинаете с A1 и хотите гладкую структурированную программу с сертификатом плюс бесплатную обратную связь от носителей. Для advanced — потолок, для любителей своих материалов — закрытая экосистема.
+        </div>
+      </div>
+
+      <!-- Memrise -->
+      <div class="service-card" id="memrise">
+        <div class="service-header">
+          <div class="service-title">
+            <h3>Memrise</h3>
+            <div class="tagline">Короткие видео носителей языка в реальных ситуациях + AI-собеседник MemBot</div>
+          </div>
+          <div class="service-meta">
+            <div class="price">~$60 / год</div>
+            <div>Web · iOS · Android</div>
+          </div>
+        </div>
+        <div class="service-body">
+          <div class="strengths">
+            <h4>Сильные стороны</h4>
+            <ul>
+              <li>Короткие видеоклипы реальных носителей в естественных ситуациях — главная фишка</li>
+              <li>MemBot — AI-чатбот на GPT-3.5 с возможностью голосового ответа</li>
+              <li>AI Buddies (май 2025): Grammar, Role Play, Translator, Culture — разные помощники</li>
+              <li>Speech recognition работает на мобильном достаточно хорошо</li>
+              <li>Встроенный SRS для слов из пройденных уроков</li>
+              <li>Хорошая бесплатная версия с доступом к видео носителей</li>
+              <li>Lifetime пропуск около $330 — лучше для долгосрочных учеников</li>
+            </ul>
+          </div>
+          <div class="weaknesses">
+            <h4>Слабые стороны</h4>
+            <ul>
+              <li>Видеоклипы короткие — нет полноценных фильмов, сериалов, лекций</li>
+              <li>Нельзя импортировать свой контент (YouTube, фильмы, PDF)</li>
+              <li>Community courses (пользовательские) были ключевой фичей, но их постепенно убрали</li>
+              <li>Нет интеграции с Anki</li>
+              <li>Нет учительских сценариев</li>
+              <li>MemBot-диалоги ограничены короткими фразами, не полноценный голосовой чат</li>
+              <li>Лексика ближе к туристической базе, глубины не хватает для advanced</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-verdict">
+          <strong>Когда выбрать:</strong> вам нравится подход «видео носителей + SRS» и вы готовы на их курированный контент. Хорошо для A2–B1, особенно на мобильном в дороге.
+        </div>
+      </div>
+
+      <!-- Rosetta Stone -->
+      <div class="service-card" id="rosetta">
+        <div class="service-header">
+          <div class="service-title">
+            <h3>Rosetta Stone</h3>
+            <div class="tagline">Классическая методика Dynamic Immersion без переводов + TruAccent для произношения</div>
+          </div>
+          <div class="service-meta">
+            <div class="price">~$130 / год · $179 lifetime</div>
+            <div>Web · iOS · Android · Desktop</div>
+          </div>
+        </div>
+        <div class="service-body">
+          <div class="strengths">
+            <h4>Сильные стороны</h4>
+            <ul>
+              <li>Dynamic Immersion — 30 лет методики, фундамент выстроен солидно</li>
+              <li>TruAccent — собственный speech recognition, работает давно и надёжно, даёт мгновенную обратную связь по произношению</li>
+              <li>Live tutoring включён в подписку как add-on ($19.99/мес) — можно заниматься с живым учителем</li>
+              <li>Есть десктопное приложение (почти уникально среди конкурентов)</li>
+              <li>Офлайн-режим со скачанными уроками</li>
+              <li>Lifetime подписка на 25+ языков по распродаже ~$179 — выгодно на долгую</li>
+              <li>Solidный бренд, хорошо работает для фундамента</li>
+            </ul>
+          </div>
+          <div class="weaknesses">
+            <h4>Слабые стороны</h4>
+            <ul>
+              <li>Нет AI-conversation практики современного уровня — TruAccent оценивает только pronunciation</li>
+              <li>Минимальные объяснения грамматики — всё через интуицию и примеры</li>
+              <li>Нет естественной скорости речи в уроках — медленно для реального мира</li>
+              <li>Закрытая система — нельзя добавить свой контент</li>
+              <li>Нет интеграции с Anki</li>
+              <li>Сам по себе не доводит до уверенной разговорной речи — нужны дополнительные ресурсы</li>
+              <li>Дизайн уроков классический, не переработан под современные паттерны</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-verdict">
+          <strong>Когда выбрать:</strong> вам нужен проверенный временем фундамент, вы хотите immersion-подход без родного языка, и вам важна репутация. Хорош как первая ступень, потом нужно что-то дополнительное для продвинутого уровня.
+        </div>
+      </div>
+
+      <!-- Pimsleur -->
+      <div class="service-card" id="pimsleur">
+        <div class="service-header">
+          <div class="service-title">
+            <h3>Pimsleur</h3>
+            <div class="tagline">30-минутные аудио-уроки с graduated interval recall, hands-free обучение в дороге</div>
+          </div>
+          <div class="service-meta">
+            <div class="price">$19.95 / мес</div>
+            <div>Mobile app · Spotify</div>
+          </div>
+        </div>
+        <div class="service-body">
+          <div class="strengths">
+            <h4>Сильные стороны</h4>
+            <ul>
+              <li>Единственный продукт для серьёзного изучения hands-free — в машине, на пробежке, в кровати с закрытыми глазами</li>
+              <li>Заставляет говорить вслух с первого урока через принцип антиципации</li>
+              <li>Graduated interval recall вшит в материал — zero friction, никаких решений</li>
+              <li>Spotify integration (ноябрь 2025) — уроки как подкасты</li>
+              <li>Reading Lessons, Speak Easy, Speed Round в приложении</li>
+              <li>Lifetime подписка на 51 язык по распродаже $299</li>
+              <li>Voice Coach AI (beta) — добавили оценку произношения, хоть и без скора</li>
+            </ul>
+          </div>
+          <div class="weaknesses">
+            <h4>Слабые стороны</h4>
+            <ul>
+              <li>Для русскоязычных — только Level 1 (15 часов аудио). Уровней 2–5 нет</li>
+              <li>Потолок ~A2/B1 даже после всех уровней на других source-языках</li>
+              <li>Лексика туристически-деловая, много диалогов устарели</li>
+              <li>Reading/writing почти отсутствуют, грамматика не объясняется</li>
+              <li>Закрытый контент — никак нельзя привязать своё видео или текст</li>
+              <li>Voice Coach в beta, без рубрики, без реальной оценки прогресса</li>
+              <li>Нет интеграции с Anki, флэш-карточки внутри закрыты</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-verdict">
+          <strong>Когда выбрать:</strong> у вас много свободного времени с занятыми глазами (дорога, пробежка, быт) и вы хотите продуктивно его использовать. Pimsleur — единственный серьёзный продукт для этого сценария. Вне его — любой современный конкурент лучше.
+        </div>
+      </div>
+
+      <!-- italki -->
+      <div class="service-card" id="italki">
+        <div class="service-header">
+          <div class="service-title">
+            <h3>italki</h3>
+            <div class="tagline">Маркетплейс живых преподавателей со всего мира — от $4 до $40 за урок</div>
+          </div>
+          <div class="service-meta">
+            <div class="price">$4–$40 / урок</div>
+            <div>Web · iOS · Android</div>
+          </div>
+        </div>
+        <div class="service-body">
+          <div class="strengths">
+            <h4>Сильные стороны</h4>
+            <ul>
+              <li>Тысячи живых преподавателей из всех стран — самый большой маркетплейс в мире</li>
+              <li>Community tutors от $4 за урок — дешевле Skyeng в разы</li>
+              <li>Professional teachers с сертификатами ($10–40) для серьёзной подготовки</li>
+              <li>italki Plus ($5.99/мес) — AI-summary уроков, vocabulary lists, practice exercises</li>
+              <li>Подготовка к IELTS, TOEFL, другим экзаменам</li>
+              <li>Community hub для общения между уроками</li>
+              <li>Гибкий график, любые языки, оплата за урок</li>
+            </ul>
+          </div>
+          <div class="weaknesses">
+            <h4>Слабые стороны</h4>
+            <ul>
+              <li><strong>Между уроками вы полностью сами по себе</strong> — ни системы повторений, ни контентной платформы, ни tracking прогресса</li>
+              <li>Нет домашней работы с автопроверкой — только то, что учитель сам создаст вручную</li>
+              <li>Качество сильно зависит от конкретного учителя</li>
+              <li>AI-tools (italki Plus) только summary и flashcards — не сравнимы с специализированными инструментами</li>
+              <li>Нет собственного learning пути — вы строите программу сами с учителем</li>
+              <li>Нет shadowing, error memory, checkpoint'ов на видео</li>
+              <li>Интеграции с Anki нет</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-verdict">
+          <strong>Когда выбрать:</strong> вам нужен живой человек за разумные деньги. italki и наше приложение <strong>не конкуренты, а дополнения</strong>: живой преподаватель + наше приложение для самостоятельной работы между уроками и приём учительских скриптов = полноценный учебный процесс.
+        </div>
+      </div>
+
+      <!-- LingQ -->
+      <div class="service-card" id="lingq">
+        <div class="service-header">
+          <div class="service-title">
+            <h3>LingQ</h3>
+            <div class="tagline">Иммерсия через чтение с курированной библиотекой на 30+ языков и реестром known words</div>
+          </div>
+          <div class="service-meta">
+            <div class="price">~$14 / мес</div>
+            <div>Web · iOS · Android</div>
+          </div>
+        </div>
+        <div class="service-body">
+          <div class="strengths">
+            <h4>Сильные стороны</h4>
+            <ul>
+              <li>Огромная курированная библиотека на 30+ языков: аудиокниги, подкасты, статьи, курсы по уровням</li>
+              <li>Реестр known words — ключевая фича, которую мы заимствуем и расширяем</li>
+              <li>Импорт произвольных текстов (но не видео) — гибкость выше большинства конкурентов</li>
+              <li>Ориентирован на input-heavy подход: много слушать и читать, а не зубрить</li>
+              <li>Track progress по известным словам объективен и показательный</li>
+              <li>Приличное мобильное приложение</li>
+              <li>Кто-то из методистов уровня Стива Кауфманна рекомендует</li>
+            </ul>
+          </div>
+          <div class="weaknesses">
+            <h4>Слабые стороны</h4>
+            <ul>
+              <li>Голосовая практика отсутствует — только чтение и слушание</li>
+              <li>Нет оценки произношения и shadowing</li>
+              <li>Реестр known words закрытый — нельзя экспортировать в Anki или сторонние системы</li>
+              <li>Интерфейс классический, визуально устаревший</li>
+              <li>Нет работы с видеофайлами (только текст и аудио)</li>
+              <li>Нет AI-собеседника, нет персонального тренажёра ошибок</li>
+              <li>Нет учительских скриптов</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-verdict">
+          <strong>Когда выбрать:</strong> вы любите читать и слушать, вам нужна гигантская готовая библиотека материалов и методика «много input'а, меньше грамматики». Наш проект — естественное расширение LingQ в сторону видео, голоса и связки с преподавателем.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VERDICT -->
+<section id="verdict">
+  <div class="container">
+    <h2>Итог: кого выбрать в каждом сценарии</h2>
+    <p class="section-sub">Честный путеводитель. Не всегда мы лучший выбор.</p>
+
+    <div class="verdict-grid">
+
+      <div class="verdict-card">
+        <h3>Начинаю с нуля, ничего не знаю</h3>
+        <p>
+          <strong>Busuu или Rosetta Stone</strong> для структурированного фундамента с ручным ведением.
+          <strong>Puzzle English</strong>, если комфортно только на русском.
+          Duolingo — для игровой мотивации. Мы — не для полного нуля.
+        </p>
+      </div>
+
+      <div class="verdict-card">
+        <h3>Хочу живого преподавателя</h3>
+        <p>
+          <strong>italki</strong> — лучший по соотношению цена/качество в мире.
+          <strong>Skyeng</strong>, если нужен русскоязычный маркетинг и поддержка.
+          Нас — как дополнение между уроками, плюс учительские скрипты.
+        </p>
+      </div>
+
+      <div class="verdict-card">
+        <h3>Учусь в машине / на пробежке</h3>
+        <p>
+          <strong>Pimsleur</strong> — единственный серьёзный продукт для hands-free.
+          Аудио-ориентирован, forced speaking, graduated recall.
+          Наш продукт требует экрана, для hands-free пока не подходит.
+        </p>
+      </div>
+
+      <div class="verdict-card">
+        <h3>Люблю читать аутентичные материалы</h3>
+        <p>
+          <strong>LingQ</strong> — огромная готовая библиотека, мощный known-words подход.
+          Мы — когда хочется того же, но с видео, голосом и Anki, а не только текстом.
+          Комбинация LingQ + наш проект — очень сильная.
+        </p>
+      </div>
+
+      <div class="verdict-card">
+        <h3>Хочу говорить вслух с оценкой</h3>
+        <p>
+          <strong>Мы</strong> — нет конкурентов в этой нише. Shadowing, пересказ, голосовые диалоги с AI,
+          оценка по рубрике с калибровкой под CEFR. Busuu Conversations и Memrise MemBot — слабее и только в их экосистеме.
+        </p>
+      </div>
+
+      <div class="verdict-card">
+        <h3>Нужна персональная память ошибок</h3>
+        <p>
+          <strong>Мы</strong> — единственный продукт с реальной категоризированной памятью ошибок
+          и тренажёром на их основе. Все остальные либо дают обобщённый review, либо не дают ничего.
+        </p>
+      </div>
+
+      <div class="verdict-card">
+        <h3>Учу по сериалам / YouTube / фильмам</h3>
+        <p>
+          <strong>Мы</strong> — нет конкурентов в работе с произвольным видео с голосовой практикой и SRS.
+          Netflix + Language Reactor — ближе всего, но только Netflix и без оценки речи.
+          Memrise и Busuu работают только со своим видеоконтентом.
+        </p>
+      </div>
+
+      <div class="verdict-card">
+        <h3>Я репетитор, хочу давать домашку ученикам</h3>
+        <p>
+          <strong>Мы</strong> — учительские скрипты к видео с автопроверкой и отчётами обратно.
+          Нет аналогов вообще. italki — только для проведения живого урока,
+          между уроками преподаватель бессилен. Мы закрываем этот gap.
+        </p>
+      </div>
+
+      <div class="verdict-card">
+        <h3>Важна приватность, не хочу в облако</h3>
+        <p>
+          <strong>Мы</strong> — единственный продукт, работающий полностью локально.
+          Локальный AI через LM Studio/Ollama, локальное ASR через HandyPipeline (Whisper).
+          Все остальные отправляют ваши данные на чужие серверы без исключений.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final-section">
+  <div class="container">
+    <h2>Наша позиция на рынке — одна фраза</h2>
+    <p>
+      Мы делаем то, что не делает никто: <strong>превращаем любое видео в персональный речевой тренажёр
+      с памятью ваших ошибок и связкой с преподавателем через файлы.</strong>
+    </p>
+    <p style="margin-top: 20px">
+      Мы не заменяем живого учителя, не учим с нуля и не собираем игровой стрик.
+      Мы — инструмент для серьёзного ученика, который уже знает, зачем учится, и нуждается в
+      мощном движке для ежедневной самостоятельной работы.
+    </p>
+    <p style="margin-top: 30px; font-size: 15px; color: var(--text-muted);">
+      <a href="index.html">← Вернуться к главной странице</a>
+      &nbsp; · &nbsp;
+      <a href="https://github.com/xxxvita/mathy-anki" target="_blank">GitHub репозиторий</a>
+    </p>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    AnkiConnect Desktop · Сравнительный анализ с 8 крупнейшими решениями · Апрель 2026<br>
+    Данные: официальные сайты, обзоры 2025–2026, собственная дорожная карта mathy-anki.<br>
+    Все торговые марки принадлежат их владельцам.
+  </div>
+</footer>
+
+</body>
+</html>
