@@ -453,6 +453,12 @@
     <p class="hero-sub">
       Восемь крупнейших сервисов для изучения английского — от классического Pimsleur до современного Busuu с AI. Что каждый из них делает хорошо, где мы сильнее, а где честно слабее. Без маркетинга.
     </p>
+    <p style="color: var(--us); font-size: 15px; margin-top: 12px; max-width: 820px;">
+      ⚡ Мы работаем <strong>с любого уровня, включая абсолютный ноль</strong> — через встроенные курсы
+      <strong>Мишан-Жиган</strong> (полный курс английского с нуля) и <strong>Чад</strong> (произношение),
+      плюс простые YouTube-ролики уровня Muzzy in Gondoland. И у нас есть <strong>P2P-обмен ресурсами</strong> —
+      фишка, которую невозможно скопировать у корпоративных конкурентов.
+    </p>
     <div class="hero-meta">
       Данные собраны из официальных сайтов, обзоров 2025–2026 и пользовательских отчётов.
       Некоторые пункты сопровождаются пометками «требует уточнения» — сервисы быстро меняются.
@@ -473,6 +479,7 @@
     <a href="#pimsleur">Pimsleur</a>
     <a href="#italki">italki</a>
     <a href="#lingq">LingQ</a>
+    <a href="#p2p" style="color: var(--us); font-weight: 600;">★ P2P-обмен</a>
     <a href="#verdict">Итог</a>
   </div>
 </nav>
@@ -487,6 +494,7 @@
       <p><strong>Источники.</strong> Официальные сайты сервисов, обзоры специализированных ресурсов (Langoly, Lingopie, Copycat Cafe, FahimAI, TestPrepInsight), пресс-релизы Chegg (владелец Busuu), документация italki Blog. Для русскоязычных — материалы на Xakep.ru и Wikipedia. Для AnkiConnect Desktop — наша дорожная карта <a href="https://github.com/xxxvita/mathy-anki" style="color: var(--accent);">mathy-anki</a>.</p>
       <p style="margin-top:10px"><strong>Состояние продуктов.</strong> Все сравниваемые сервисы — действующие, с актуальными ценами 2026. Наш продукт (AnkiConnect Desktop) находится в активной разработке; часть функций уже работает, часть запланирована к ближайшим релизам согласно дорожной карте (файлы 01–16).</p>
       <p style="margin-top:10px"><strong>Честность.</strong> Мы не скрываем слабые стороны. Продукт для самостоятельных учеников выигрывает не у всех и не всегда — у каждого сервиса есть сценарий, где он лучший выбор. В конце документа мы указываем, когда стоит выбрать не нас.</p>
+      <p style="margin-top:10px"><strong>Про цены.</strong> Цены для AnkiConnect Desktop ещё не зафиксированы — продукт в активной разработке. Ориентировочная оценка: $8–15 в месяц за полный функционал при использовании внешних AI-сервисов. При подключении к сообществу через P2P-обмен ресурсами — <strong>может быть бесплатно</strong>. Точная модель будет объявлена ближе к релизу. Издержки складываются из: AssemblyAI ($50 за 300 часов STT, есть free tier), OpenAI GPT (точный расход пока не измерен — нет реальных пользователей), ElevenLabs ($20/мес на подписку, которую можно шарить на 4 пользователя через round-robin в нашем gateway), аренда сервера (~$25/мес независимо от числа пользователей).</p>
     </div>
   </div>
 </section>
@@ -879,6 +887,32 @@
           </tr>
 
           <tr>
+            <td class="feature-name">P2P-обмен ресурсами в сообществе<span class="cell-note">бесплатный AI/STT через чужую видеокарту</span></td>
+            <td class="us-col cell-us">Да<span class="cell-note">уникально</span></td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
+            <td class="feature-name">Шаринг платных подписок между пользователями<span class="cell-note">round-robin через наш сервер</span></td>
+            <td class="us-col cell-us">Да</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+            <td class="cell-no">Нет</td>
+          </tr>
+
+          <tr>
             <td class="feature-name">Данные остаются на вашем устройстве</td>
             <td class="us-col cell-us">Да</td>
             <td class="cell-no">Облако</td>
@@ -947,7 +981,7 @@
 
           <tr>
             <td class="feature-name">Базовая платная подписка (ориентировочно)</td>
-            <td class="us-col cell-us">~LingQ</td>
+            <td class="us-col cell-us">TBD<span class="cell-note">оценочно $8–15<br>или бесплатно через P2P</span></td>
             <td class="cell-partial">~$36/год</td>
             <td class="cell-partial">833₽/мес</td>
             <td class="cell-partial">~$6.85/мес</td>
@@ -997,7 +1031,7 @@
             <div class="tagline">Настольное приложение для превращения любого видео в персональный речевой тренажёр</div>
           </div>
           <div class="service-meta">
-            <div class="price">~LingQ / мес</div>
+            <div class="price">TBD <small>(оценочно $8–15)</small></div>
             <div>Windows · Linux · macOS</div>
             <div>В активной разработке</div>
           </div>
@@ -1006,7 +1040,7 @@
           <div class="strengths">
             <h4>Сильные стороны</h4>
             <ul>
-              <li>Любое видео — локальный файл, YouTube, фильм, Shorts, урок учителя — становится тренажёром</li>
+              <li>Любой локальный видеофайл (фильм, сериал, лекция, урок преподавателя) и YouTube-видео становятся тренажёром с shadowing, checkpoint'ами и оценкой речи</li>
               <li>Реальная голосовая практика: пересказ, role-play, shadowing на любом материале с оценкой по рубрике</li>
               <li>Открытый реестр знакомых слов с импортом из любых сервисов (LingQ, Skyeng, Duolingo, Anki)</li>
               <li>Персональная память ошибок + тренажёр слабых мест на ваших реальных промахах, а не на случайных</li>
@@ -1014,8 +1048,10 @@
               <li>Учительские скрипты к видео (file-based) — уникальная фича, которой нет нигде</li>
               <li>Глубокая интеграция с настоящей Anki: вырезка клипов, обогащение карточек, тегирование источника</li>
               <li>Локальный AI и ASR (HandyPipeline/Whisper) — работает офлайн бесплатно</li>
+              <li><strong style="color: var(--us);">⭐ P2P-обмен ресурсами в сообществе</strong> — бесплатный доступ к premium через чужие GPU и подписки. Невозможно скопировать у корпоративных конкурентов. <a href="#p2p" style="color: var(--accent);">Подробнее ↓</a></li>
               <li>Персонализация под ваши хобби и профессию во всех режимах</li>
-              <li>Курс Мишина-Жигана встроен, тренажёры произношения</li>
+              <li>Встроены готовые курсы для нуля: <strong>Мишан-Жиган</strong> (полный курс английского с абсолютного нуля) и <strong>Чад</strong> (тренажёр произношения)</li>
+              <li>Работает с любого уровня, включая полный ноль — через встроенные курсы и простой YouTube-контент (Muzzy in Gondoland, детские обучающие ролики)</li>
               <li>Данные остаются на вашем устройстве — приватность first-class</li>
             </ul>
           </div>
@@ -1025,11 +1061,12 @@
               <li>Нет мобильного приложения — пока только десктоп</li>
               <li>Нет синхронизации между устройствами (обратная сторона приватности)</li>
               <li>Нет собственной курированной библиотеки уровня LingQ — вы приносите контент</li>
+              <li>Из стриминговых сервисов пока работаем только с YouTube — LingQ покрывает больше (Netflix и другие через расширение)</li>
               <li>Нет живого преподавателя — мы его дополняем, а не заменяем</li>
               <li>Нет геймификации, стриков и уведомлений — не заманиваем игрой</li>
-              <li>Не для полного нуля: нужен хотя бы A1, чтобы было с чем работать</li>
-              <li>Нет community feedback от носителей</li>
+              <li>Нет community feedback от носителей языка</li>
               <li>Нет готового пути на полгода — свобода = ваша ответственность</li>
+              <li>Цены ещё не зафиксированы — в активной разработке, модель ценообразования уточняется</li>
             </ul>
           </div>
         </div>
@@ -1366,10 +1403,10 @@
             <h4>Слабые стороны</h4>
             <ul>
               <li>Голосовая практика отсутствует — только чтение и слушание</li>
-              <li>Нет оценки произношения и shadowing</li>
+              <li>Нет оценки произношения и shadowing на видео</li>
               <li>Реестр known words закрытый — нельзя экспортировать в Anki или сторонние системы</li>
               <li>Интерфейс классический, визуально устаревший</li>
-              <li>Нет работы с видеофайлами (только текст и аудио)</li>
+              <li>Видео-источники обрабатывает как импорт текста/аудио — не играет само видео с таймкодами и shadowing'ом</li>
               <li>Нет AI-собеседника, нет персонального тренажёра ошибок</li>
               <li>Нет учительских скриптов</li>
             </ul>
@@ -1378,6 +1415,140 @@
         <div class="service-verdict">
           <strong>Когда выбрать:</strong> вы любите читать и слушать, вам нужна гигантская готовая библиотека материалов и методика «много input'а, меньше грамматики». Наш проект — естественное расширение LingQ в сторону видео, голоса и связки с преподавателем.
         </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- P2P KILLER FEATURE -->
+<section id="p2p" style="background: linear-gradient(180deg, var(--bg) 0%, #0e1530 50%, var(--bg) 100%);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 20px;">
+      <span style="display:inline-block; padding: 6px 16px; background: var(--us-bg); border: 1px solid var(--us); color: var(--us); border-radius: 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;">
+        Killer feature · Нет ни у кого
+      </span>
+    </div>
+    <h2 style="text-align: center;">P2P-обмен ресурсами в сообществе</h2>
+    <p class="section-sub" style="margin-left: auto; margin-right: auto; text-align: center;">
+      Самое уникальное, что делает нас недоступным для копирования большими корпорациями.
+      Пользователи делятся железом и подписками друг с другом, превращая <strong>платные функции в бесплатные</strong>
+      для тех, кому нечем поделиться взамен.
+    </p>
+
+    <div style="background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 16px; padding: 32px; margin-top: 20px;">
+
+      <h3 style="color: var(--accent); font-size: 20px; margin-bottom: 16px;">Как это работает</h3>
+
+      <p style="color: var(--text-dim); margin-bottom: 20px;">
+        AnkiConnect Desktop для всех платных операций (оценка речи через LLM, распознавание речи,
+        синтез голоса) использует трёхуровневую цепочку источников:
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 24px 0;">
+
+        <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+          <div style="color: var(--us); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Уровень 1 · Бесплатно</div>
+          <h4 style="color: var(--text); font-size: 16px; margin-bottom: 8px;">Локальные ресурсы</h4>
+          <p style="color: var(--text-dim); font-size: 13px; line-height: 1.6;">
+            Локальный Whisper (HandyPipeline) — распознавание речи на вашей GPU.
+            Локальная LLM через LM Studio / Ollama — оценка ответов на вашей GPU.
+            Требует мощного компьютера.
+          </p>
+        </div>
+
+        <div style="background: var(--bg); border: 1px solid var(--us); border-radius: 12px; padding: 20px;">
+          <div style="color: var(--us); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Уровень 2 · Бесплатно через сообщество</div>
+          <h4 style="color: var(--text); font-size: 16px; margin-bottom: 8px;">P2P-обмен в группе ⭐</h4>
+          <p style="color: var(--text-dim); font-size: 13px; line-height: 1.6;">
+            Члены сообщества с мощным железом предоставляют свою GPU и свои подписки.
+            Пользователи без железа получают бесплатный STT и LLM через их компьютеры.
+            Нулевая стоимость для новичка.
+          </p>
+        </div>
+
+        <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+          <div style="color: var(--accent); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Уровень 3 · Платно</div>
+          <h4 style="color: var(--text); font-size: 16px; margin-bottom: 8px;">Внешние сервисы</h4>
+          <p style="color: var(--text-dim); font-size: 13px; line-height: 1.6;">
+            Если ни локально, ни через группу недоступно — используются платные облачные сервисы:
+            OpenAI, AssemblyAI, ElevenLabs. Оплата напрямую провайдеру или через наш gateway.
+          </p>
+        </div>
+
+      </div>
+
+      <h3 style="color: var(--accent); font-size: 20px; margin: 32px 0 16px;">Что можно шарить</h3>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+        <div>
+          <h4 style="color: var(--text); font-size: 15px; margin-bottom: 10px;">🎮 Вычислительные мощности</h4>
+          <ul style="list-style: none; color: var(--text-dim); font-size: 14px;">
+            <li style="padding: 4px 0;">→ Запуск локальной LLM на вашей GPU для других членов группы</li>
+            <li style="padding: 4px 0;">→ Распознавание речи через ваш Whisper для тех, у кого нет мощного железа</li>
+            <li style="padding: 4px 0;">→ Локальный синтез речи через вашу звуковую карту и модели</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: var(--text); font-size: 15px; margin-bottom: 10px;">💳 Платные подписки</h4>
+          <ul style="list-style: none; color: var(--text-dim); font-size: 14px;">
+            <li style="padding: 4px 0;">→ ElevenLabs Pro ($20/мес) — один аккаунт на 4 пользователей через round-robin</li>
+            <li style="padding: 4px 0;">→ OpenAI API — общий пул токенов с лимитом на пользователя</li>
+            <li style="padding: 4px 0;">→ AssemblyAI — общий free tier между группой (300 часов/аккаунт)</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="color: var(--accent); font-size: 20px; margin: 32px 0 16px;">Что получают участники</h3>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+        <div style="background: var(--bg); border-left: 3px solid var(--us); padding: 16px 20px; border-radius: 4px;">
+          <strong style="color: var(--us);">Провайдеры ресурсов</strong>
+          <p style="color: var(--text-dim); font-size: 14px; margin-top: 8px; line-height: 1.6;">
+            Скидка на подписку (или бесплатная версия в обмен на шаринг).
+            Доступ к ElevenLabs в 5 раз дешевле через наш gateway.
+            Возможность окупить своё дорогое железо.
+          </p>
+        </div>
+        <div style="background: var(--bg); border-left: 3px solid var(--accent); padding: 16px 20px; border-radius: 4px;">
+          <strong style="color: var(--accent);">Потребители ресурсов</strong>
+          <p style="color: var(--text-dim); font-size: 14px; margin-top: 8px; line-height: 1.6;">
+            Доступ к премиум-функциям без оплаты внешних сервисов.
+            Ограничение: нет пословных таймкодов в бесплатном STT.
+            Идеально для старта, можно учиться ничего не платя.
+          </p>
+        </div>
+      </div>
+
+      <h3 style="color: var(--accent); font-size: 20px; margin: 32px 0 16px;">Почему это невозможно скопировать у конкурентов</h3>
+
+      <ul style="list-style: none; color: var(--text-dim); font-size: 14px; line-height: 1.8;">
+        <li style="padding-left: 24px; position: relative; margin-bottom: 10px;">
+          <span style="position: absolute; left: 0; color: var(--good);">▸</span>
+          <strong style="color: var(--text);">Корпорации не могут</strong> — у Duolingo, Busuu, Rosetta Stone бизнес-модель построена на оплате каждого пользователя. Позволить пользователям делиться ресурсами = убить свою же выручку.
+        </li>
+        <li style="padding-left: 24px; position: relative; margin-bottom: 10px;">
+          <span style="position: absolute; left: 0; color: var(--good);">▸</span>
+          <strong style="color: var(--text);">SaaS не могут</strong> — LingQ, Quizlet работают в облаке, у них нет клиента на компьютере пользователя, который мог бы запускать чужие задачи.
+        </li>
+        <li style="padding-left: 24px; position: relative; margin-bottom: 10px;">
+          <span style="position: absolute; left: 0; color: var(--good);">▸</span>
+          <strong style="color: var(--text);">Маркетплейсы не могут</strong> — italki продаёт уроки учителей, не имеет технической базы для шаринга GPU.
+        </li>
+        <li style="padding-left: 24px; position: relative; margin-bottom: 10px;">
+          <span style="position: absolute; left: 0; color: var(--good);">▸</span>
+          <strong style="color: var(--text);">Мы можем</strong> — потому что изначально десктопное приложение с локальным AI, privacy-first архитектурой и открытым gateway. Это прямое следствие наших фундаментальных решений, а не надстройка.
+        </li>
+      </ul>
+
+      <div style="margin-top: 32px; padding: 20px; background: var(--us-bg); border: 1px solid var(--us); border-radius: 12px;">
+        <p style="color: var(--text); font-size: 15px; line-height: 1.7;">
+          <strong style="color: var(--us);">Итог:</strong> новый пользователь устанавливает программу, заходит в
+          группу сообщества (например, «русскоязычные школьники»), и сразу получает бесплатный
+          доступ к premium-функционалу через ресурсы тех, кто уже в группе. Если в группе никого нет —
+          fallback на внешние платные сервисы или локальный AI. Никакой конкурент не может
+          повторить эту модель, не сломав свою бизнес-модель.
+        </p>
       </div>
 
     </div>
@@ -1395,9 +1566,11 @@
       <div class="verdict-card">
         <h3>Начинаю с нуля, ничего не знаю</h3>
         <p>
-          <strong>Busuu или Rosetta Stone</strong> для структурированного фундамента с ручным ведением.
-          <strong>Puzzle English</strong>, если комфортно только на русском.
-          Duolingo — для игровой мотивации. Мы — не для полного нуля.
+          <strong>Мы — да</strong>, встроенный курс <strong>Мишан-Жиган</strong> ведёт с абсолютного
+          нуля, плюс тренажёр произношения <strong>Чад</strong>, плюс простые YouTube-ролики для детей
+          (Muzzy in Gondoland и аналоги) работают как иммерсивный материал для начинающих.
+          <strong>Busuu / Rosetta Stone</strong> — более гладкий классический онбординг для нуля без
+          своего контента. <strong>Duolingo</strong> — для игровой мотивации.
         </p>
       </div>
 
@@ -1447,9 +1620,19 @@
       <div class="verdict-card">
         <h3>Учу по сериалам / YouTube / фильмам</h3>
         <p>
-          <strong>Мы</strong> — нет конкурентов в работе с произвольным видео с голосовой практикой и SRS.
-          Netflix + Language Reactor — ближе всего, но только Netflix и без оценки речи.
-          Memrise и Busuu работают только со своим видеоконтентом.
+          <strong>Мы</strong> — лучшие в работе с локальными файлами + голосовой практикой + SRS.
+          <strong>LingQ</strong> — шире по стриминговым источникам (YouTube + Netflix + другие через расширение),
+          но обрабатывает их как текст/аудио, без shadowing. <strong>Language Reactor</strong> — только Netflix, без оценки речи.
+        </p>
+      </div>
+
+      <div class="verdict-card" style="border-color: var(--us); background: linear-gradient(135deg, rgba(138, 255, 193, 0.06) 0%, var(--bg-card) 100%);">
+        <h3 style="color: var(--us);">★ Бюджет — ноль, железо — слабое</h3>
+        <p>
+          <strong>Только у нас</strong> есть P2P-обмен ресурсами: войдите в сообщество, и ваш доступ к
+          premium-функциям оплачивают те, у кого мощное железо. Бесплатно, легально,
+          с небольшими ограничениями (например, STT без пословных таймкодов). Ни один другой
+          сервис не может повторить это без убийства своей выручки.
         </p>
       </div>
 
@@ -1484,9 +1667,10 @@
       с памятью ваших ошибок и связкой с преподавателем через файлы.</strong>
     </p>
     <p style="margin-top: 20px">
-      Мы не заменяем живого учителя, не учим с нуля и не собираем игровой стрик.
-      Мы — инструмент для серьёзного ученика, который уже знает, зачем учится, и нуждается в
-      мощном движке для ежедневной самостоятельной работы.
+      Мы не заменяем живого учителя и не собираем игровой стрик.
+      Мы — инструмент для серьёзного ученика любого уровня (включая абсолютный ноль через
+      встроенные курсы), который уже знает, зачем учится, и нуждается в мощном движке для
+      ежедневной самостоятельной работы.
     </p>
     <p style="margin-top: 30px; font-size: 15px; color: var(--text-muted);">
       <a href="index.html">← Вернуться к главной странице</a>
